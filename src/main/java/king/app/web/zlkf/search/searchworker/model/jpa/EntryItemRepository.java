@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.controller.model.jpa;
+package king.app.web.zlkf.search.searchworker.model.jpa;
 
-import king.app.web.zlkf.search.searchworker.controller.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

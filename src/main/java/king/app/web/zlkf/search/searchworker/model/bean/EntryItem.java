@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.controller.model.bean;
+package king.app.web.zlkf.search.searchworker.model.bean;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,6 +32,13 @@ public class EntryItem {
     
     @Column(name = "url")
     public String url = null;
+    
+    @Column( name="create_time")
+    public Date createTime = null;
+    
+    
+    @Column( name ="modify_time")
+    public Date modifyTime = null; 
     
     public final static String KEY_ID_FIELD_STRING = "id";
     public final static String KEY_TITLE_FIELD_STRING = "title";
