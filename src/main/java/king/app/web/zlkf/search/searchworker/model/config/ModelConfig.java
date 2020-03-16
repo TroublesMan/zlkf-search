@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -21,10 +22,12 @@ public class ModelConfig {
 
     public final static String MYSQL_DRIVER_CLASS_NAME_STRING = "com.mysql.jdbc.Driver";
     
+/*
     @Bean
     public DataSource localDataSource(){
         HikariDataSource datasource = new HikariDataSource ();
         
+        //添加对应的 数据库的基本配置
         datasource.setDriverClassName(MYSQL_DRIVER_CLASS_NAME_STRING);
         datasource.setJdbcUrl( "jdbc:mysql://localhost:3306/zlkf_search?useUnicode=true&characterEncoding=UTF-8" );
         datasource.setUsername("root");
@@ -32,6 +35,5 @@ public class ModelConfig {
         
         return datasource;
     }
-    
-    
+*/
 }

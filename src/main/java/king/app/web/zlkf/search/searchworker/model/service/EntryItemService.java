@@ -30,6 +30,9 @@ public class EntryItemService {
     
     @Autowired
     private JdbcUtilService jdbcUtils;
+    
+    @Autowired
+    private EntrySearchHisService entrySearchHisService;
     /**
      *  根据对应的一个字符串进行搜索出对应的长度
      * @param text
@@ -45,6 +48,8 @@ public class EntryItemService {
                return cb.or(idLike,introLike);
             }
         }, Pageable.unpaged());
+        
+        this.entrySearchHisService.writeSearchHis(text);
         return items.getContent();
     }
     

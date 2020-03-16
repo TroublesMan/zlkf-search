@@ -18,9 +18,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "entry_item")
 public class EntryItem {
-    
+
     @Id
-    public Long id = null; // id值
+    @Column(name="id")
+    public Long id; 
     
     @Column(name="title")
     public String title = null; // title
@@ -44,4 +45,5 @@ public class EntryItem {
     public final static String KEY_TITLE_FIELD_STRING = "title";
     public final static String KEY_INTRODUCTION_FIELD_STRING = "introduction";
     public final static String KEY_URL_FIELD_STRING = "url";
+
 }
