@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.model.service;
+package king.app.web.zlkf.search.searchworker.service.model;
 
 import java.util.Date;
 import king.app.web.zlkf.search.searchworker.model.bean.EntrySearchHistory;
@@ -31,6 +31,12 @@ public class EntrySearchHisService {
      * @return 
      */
     public EntrySearchHistory writeSearchHis( String content ){
+        
+        // 这里是判断对应的参数是否符合标准的地方
+        if( content == null || content.trim().equals("")){
+            return null;
+        }
+        
         Long count = new Long(1);
         EntrySearchHistory history = this.hisRepository.getEntryHisByContent(content);
         if( history == null ){

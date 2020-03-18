@@ -5,10 +5,15 @@
  */
 package king.app.web.zlkf.search.searchworker.controller;
 
+import javax.sql.DataSource;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntryItemRepository;
-import king.app.web.zlkf.search.searchworker.model.service.EntryItemService;
+import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
 import king.app.web.zlkf.search.searchworker.controller.rest.EntryItemController;
+import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.service.model.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +51,31 @@ public class TestController {
     @RequestMapping("entry/search")
     public Object entrySearchText( String  text ){
         return this.entryItemService.searchByText(text);
+    }
+    
+    @Autowired
+    private DataSource datasource;
+    
+    //测试对应的DataSource
+    @RequestMapping("datasource")
+    public Object datasource(){
+        return this.datasource.toString();
+    }
+
+    @Autowired
+    private RedisService redis;
+    
+    @RequestMapping("redis/set/{key}/{val}")
+    public Object redisSet(@PathVariable("key") String key , @PathVariable("val") String val ){
+        EntryItem entry = new EntryItem();
+        entry.title = val;
+        this.redis.set(key, entry);
+        return entry;
+    }
+    @RequestMapping("redis/get/{key}")
+    public Object redisGet( @PathVariable("key") String key ){
+        Object result = this.redis.get(key,EntryItem.class);
+        return result;
     }
     
 }

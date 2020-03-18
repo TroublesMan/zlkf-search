@@ -5,6 +5,7 @@
  */
 package king.app.web.zlkf.search.searchworker.model.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "entry_item")
-public class EntryItem {
+public class EntryItem implements Serializable{
 
     @Id
     @Column(name="id")

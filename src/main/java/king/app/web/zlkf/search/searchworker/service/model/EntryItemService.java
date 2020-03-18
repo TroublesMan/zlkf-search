@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.model.service;
+package king.app.web.zlkf.search.searchworker.service.model;
 
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -49,7 +49,7 @@ public class EntryItemService {
             }
         }, Pageable.unpaged());
         
-        this.entrySearchHisService.writeSearchHis(text);
+        //this.entrySearchHisService.writeSearchHis(text);
         return items.getContent();
     }
     

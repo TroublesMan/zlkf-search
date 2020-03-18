@@ -9,8 +9,11 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -35,5 +38,16 @@ public class ModelConfig {
         
         return datasource;
     }
-*/
+*/  
+    
+    @Bean
+    public RedisStruct originRedisStruct( RedisConnectionFactory redisConnectionFactory  ){
+        RedisStruct origin = RedisStruct.byConnection(redisConnectionFactory);
+        return origin;
+    }
+    
+    @Bean
+    public RedisTemplate redisTemplate( RedisStruct redisStruct ){
+        return redisStruct.template;
+    }
 }
