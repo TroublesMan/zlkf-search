@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.model.config;
+package king.app.web.zlkf.search.searchworker.model.redis;
 
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -37,14 +38,19 @@ public class RedisStruct {
     
     public static RedisStruct byConnection( RedisConnectionFactory connectionFactory ){
         RedisTemplate template = new RedisTemplate();
+        
         template.setConnectionFactory(connectionFactory);
         return byTemplate(template);
     }
     
     public void setConnectionFactory( RedisConnectionFactory connectionFactory ){
         if( connectionFactory != null ){
-            this.isConnectionRedis = true;
-            this.connectionFactory = connectionFactory;
+            
+            RedisConnection redisConnection = connectionFactory.getConnection();
+            if( redisConnection != null && !redisConnection.isClosed() ){
+                this.isConnectionRedis = true;
+                this.connectionFactory = connectionFactory;
+            }
         }
     }
         

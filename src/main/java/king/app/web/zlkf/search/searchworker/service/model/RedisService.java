@@ -5,7 +5,7 @@
  */
 package king.app.web.zlkf.search.searchworker.service.model;
 
-import king.app.web.zlkf.search.searchworker.model.config.RedisStruct;
+import king.app.web.zlkf.search.searchworker.model.redis.RedisStruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class RedisService {
         return true;
     }
     
-    public <T> Object get( Object key , Class<T> targetClass){
+    public <T> T get( Object key , Class<T> targetClass){
         RedisStruct struct = this.redisStruct;
         if( !struct.isConnectionRedis ){
             return null;

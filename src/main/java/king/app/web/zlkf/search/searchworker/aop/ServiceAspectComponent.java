@@ -25,8 +25,8 @@ public class ServiceAspectComponent {
     /**
      * 用来应用对应的 entryService 查询的时候， 来直接写入程序信息的操作
      */
-    @Pointcut("execution( * king.app.web.zlkf.search.searchworker.model.service.EntryItemService.searchByText(..) )")
-    public void entry_search_text() {    }
+    @Pointcut("execution( * king.app.web.zlkf.search.searchworker.service.model.EntryItemService.searchByText(..) )")
+    public void entry_search_text() { }
 
 
     @Autowired
