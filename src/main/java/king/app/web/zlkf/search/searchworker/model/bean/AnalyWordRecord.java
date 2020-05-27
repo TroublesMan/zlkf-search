@@ -6,7 +6,6 @@
 package king.app.web.zlkf.search.searchworker.model.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,19 +16,21 @@ import javax.persistence.Table;
  * @author king
  */
 @Entity
-@Table(name = "entry_search_history")
-public class EntrySearchHistory implements Serializable{
+@Table(name = "analy_word_record")
+public class AnalyWordRecord implements Serializable {
     
     @Id
     @Column(name="id")
-    public Long id = null;
+    public Long id; 
     
-    @Column(name="content")
-    public String content = null;
+    @Column(name="word")
+    public String word = null; // word
     
     @Column(name="create_time")
     public Long createTime = null;
     
-    @Column(name="search_count")
-    public Long searchCount = null;
+    @Column( name = "modify_time")
+    public Long modifyTime = null;
+    
+    
 }

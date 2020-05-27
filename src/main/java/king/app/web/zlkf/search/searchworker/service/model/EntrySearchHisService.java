@@ -45,7 +45,7 @@ public class EntrySearchHisService {
             history = new EntrySearchHistory();
             history.id  = current.getTime();
             history.content = content;
-            history.createTime = current;
+            history.createTime = current.getTime();
             history.searchCount = count;
             history = this.hisRepository.save( history );
             

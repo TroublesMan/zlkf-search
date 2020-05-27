@@ -36,11 +36,11 @@ public class EntryItem implements Serializable{
     public String url = null;
     
     @Column( name="create_time")
-    public Date createTime = null;
+    public Long createTime = null;
     
     
     @Column( name ="modify_time")
-    public Date modifyTime = null; 
+    public Long modifyTime = null; 
     
     public final static String KEY_ID_FIELD_STRING = "id";
     public final static String KEY_TITLE_FIELD_STRING = "title";

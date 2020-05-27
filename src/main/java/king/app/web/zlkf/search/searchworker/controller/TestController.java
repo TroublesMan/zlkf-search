@@ -50,7 +50,7 @@ public class TestController {
      */
     @RequestMapping("entry/search")
     public Object entrySearchText( String  text ){
-        return this.entryItemService.searchByText(text);
+        return this.entryItemService.searchByText(text , null , null);
     }
     
     @Autowired
