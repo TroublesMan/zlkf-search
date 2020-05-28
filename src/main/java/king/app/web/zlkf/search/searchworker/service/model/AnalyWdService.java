@@ -5,7 +5,7 @@
  */
 package king.app.web.zlkf.search.searchworker.service.model;
 
-import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class AnalyWdService {
     @Autowired
     private WordService word;
     
-    public List<String> analyWord( String str ){
+    public Set<String> analyWord( String str ){
         return this.word.analyStrToWd(str);
     }
     

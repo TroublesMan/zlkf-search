@@ -6,7 +6,9 @@
 package king.app.web.zlkf.search.searchworker.service.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apdplat.word.WordSegmenter;
 import org.apdplat.word.segmentation.Word;
 import org.springframework.stereotype.Service;
@@ -18,17 +20,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class WordService {
 
-    public List<String> analyStrToWd(String str) {
+    public Set<String> analyStrToWd(String str) {
         List<Word> wordList = WordSegmenter.seg(str);
 
-        ArrayList<String> strList = new ArrayList<String>();
+        Set<String> strSet = new HashSet<String>();
 
         for (Word word : wordList) {
             String w = word.getText();
-            strList.add(w);
+            strSet.add(w);
         }
 
-        return strList;
+        return strSet;
     }
 
 }

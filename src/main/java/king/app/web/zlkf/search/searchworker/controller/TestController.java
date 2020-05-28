@@ -5,11 +5,16 @@
  */
 package king.app.web.zlkf.search.searchworker.controller;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.sql.DataSource;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntryItemRepository;
 import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
 import king.app.web.zlkf.search.searchworker.controller.rest.EntryItemController;
+import king.app.web.zlkf.search.searchworker.model.bean.AnalyWordRecord;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.service.model.AnalyWdRdService;
+import king.app.web.zlkf.search.searchworker.service.model.AnalyWdService;
 import king.app.web.zlkf.search.searchworker.service.model.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +35,9 @@ public class TestController {
     
     @Autowired
     private EntryItemService entryItemService;
+    
+    @Autowired
+    private AnalyWdService analyService;
     
     private final static String HELLO_WORLD_STRING = "helloworld";
     
@@ -76,6 +84,32 @@ public class TestController {
     public Object redisGet( @PathVariable("key") String key ){
         Object result = this.redis.get(key,EntryItem.class);
         return result;
+    }
+    
+    @RequestMapping("analy/wd")
+    public Object analyWd( String str ){
+        if( str == null ){
+            return "this is a error ";
+        }
+        
+        return this.analyService.analyWord(str);
+    }
+    
+    @Autowired
+    private AnalyWdRdService analyWordRecordService;
+    
+    
+    @RequestMapping("insert/rd")
+    public Object insert_rd( String str ){
+       
+        if( str == null ){
+            return "this is a error ";
+        }
+        
+        Set<String> strSet  = this.analyService.analyWord(str);
+        
+        return this.analyWordRecordService.searchOrInsert(strSet);
+        
     }
     
 }

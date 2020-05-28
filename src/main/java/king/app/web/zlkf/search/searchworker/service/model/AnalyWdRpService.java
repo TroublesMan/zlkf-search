@@ -5,6 +5,8 @@
  */
 package king.app.web.zlkf.search.searchworker.service.model;
 
+import king.app.web.zlkf.search.searchworker.model.jpa.AnalyWdRdRpRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,5 +15,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AnalyWdRpService {
+    
+    @Autowired
+    private AnalyWdRdRpRepository repository;
     
 }
