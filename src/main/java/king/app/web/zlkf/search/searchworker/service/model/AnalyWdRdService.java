@@ -8,16 +8,14 @@ package king.app.web.zlkf.search.searchworker.service.model;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import king.app.web.zlkf.search.searchworker.model.bean.AnalyWordRecord;
 import king.app.web.zlkf.search.searchworker.model.jpa.AnalywdRdRepository;
+import king.app.web.zlkf.search.searchworker.service.model.obj.EqualSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -49,13 +47,14 @@ public class AnalyWdRdService {
 
     }
 
+    /**
+     *  接下去准备开始查询或者删除
+     * @param str
+     * @return 
+     */
     public AnalyWordRecord findOrInsert(String str) {
-        Optional<AnalyWordRecord> optional = this.repository.findOne(new Specification<AnalyWordRecord>() {
-            @Override
-            public Predicate toPredicate(Root<AnalyWordRecord> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-                return cb.equal(root.get("word"), str);
-            }
-        });
+        Specification<AnalyWordRecord> specification = new EqualSpecification<AnalyWordRecord>("word",str);
+        Optional<AnalyWordRecord> optional = this.repository.findOne( specification );
         boolean isPresent = optional.isPresent();
         AnalyWordRecord record = null;
         if (isPresent) {
@@ -88,6 +87,8 @@ public class AnalyWdRdService {
         record.createTime = current;
         record.modifyTime = record.createTime;
         record.word = str;
+        
+        //this.repository.findOne( new EqualSpecification<AnalyWordRecord>("",""));
 
         record = this.repository.save(record);
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.service.model;
+package king.app.web.zlkf.search.searchworker.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -36,6 +36,7 @@ public class EntryItemService {
     
     @Autowired
     private EntrySearchHisService entrySearchHisService;
+    
     /**
      *  根据对应的一个字符串进行搜索出对应的长度
      * @param text
