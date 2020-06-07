@@ -72,6 +72,27 @@
             <artifactId>word</artifactId>
             <version>1.1</version>
         </dependency>
+        
+        <!-- 引入对应的 elasticsearch 相对应的架包 -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>5.6.12</version>
+        </dependency>
+
+        <!-- Java High Level REST Client -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>5.6.12</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>5.6.12</version>
+        </dependency>
+        
     </dependencies>
 
     <build>

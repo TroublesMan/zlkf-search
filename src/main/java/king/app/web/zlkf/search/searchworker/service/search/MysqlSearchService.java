@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.service;
+package king.app.web.zlkf.search.searchworker.service.search;
 
 import java.util.List;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author king
  */
 @Service
-public class SearchService {
+public class MysqlSearchService {
     
     @Autowired
     private EntryItemService entryItemService ;
