@@ -7,12 +7,15 @@ package king.app.web.zlkf.search.searchworker.service.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import king.app.web.zlkf.search.searchworker.model.bean.AnalyWdStruct;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntryItemRepository;
+import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +39,12 @@ public class EntryItemService {
     
     @Autowired
     private EntrySearchHisService entrySearchHisService;
+    
+    @Autowired
+    private AnalyWdService analyWdService;
+    
+    @Autowired
+    private EntryItemService self;
     
     /**
      *  根据对应的一个字符串进行搜索出对应的长度
@@ -72,13 +81,34 @@ public class EntryItemService {
         return items.getContent();
     }
     
+    /**
+     * 
+     * 创建对应的EntryItem ， 无需要对应的下一步的共享
+     * 
+     * @param entryItem
+     * @return 
+     */
+    public CreateEntryItemObj createEntryItem( EntryItem entryItem ){
+        
+        this.self.newEntryItem(entryItem);
+        
+        //将对应的操作带入里面 ， 我们暂时先不管其他的东西，直接将操作写入这里面
+        
+        Set<AnalyWdStruct> analyStructSet = this.analyWdService.analyEntryItem(entryItem);
+        EntryItem newEntryItem = this.entryItemRepository.save(entryItem);
+        
+        CreateEntryItemObj createObj = new CreateEntryItemObj(newEntryItem, analyStructSet);
+        
+        return createObj;
+        
+    }
+    
     public EntryItem newEntryItem( EntryItem entryItem ){
         Date date = new Date();
         entryItem.createTime = date.getTime();
         entryItem.modifyTime = date.getTime();
         entryItem.id = date.getTime();
         //返回新值
-        EntryItem newEntryItem = this.entryItemRepository.save(entryItem);
-        return newEntryItem;
+        return entryItem;
     }
 }

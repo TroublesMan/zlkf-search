@@ -5,6 +5,8 @@
  */
 package king.app.web.zlkf.search.searchworker.service.elasticsearch;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import java.io.IOException;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc.DeleteResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
@@ -21,6 +23,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,8 +75,11 @@ public class ESearchService {
      * @return 
      */
     public IndexResponseObj saveOrUpdateByObj( String index ,String type , String id , Object obj ) throws IOException{
+        
         IndexRequest indexRequest = new IndexRequest(index , type , id );
-        indexRequest.source( obj );
+        //转化为对应的obj json 字符串
+        String objJsonStr = JSONObject.toJSONString(obj);
+        indexRequest.source(objJsonStr, XContentType.JSON);
         return this.saveOrUpdate(indexRequest);
     }
     

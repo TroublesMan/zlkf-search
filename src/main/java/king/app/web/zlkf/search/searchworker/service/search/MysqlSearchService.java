@@ -22,7 +22,7 @@ public class MysqlSearchService {
     @Autowired
     private EntryItemService entryItemService ;
     
-    public List<EntryItem> searchByText( String text , Integer pageNum , Integer pageSize ){
+    public List<EntryItem> searchEntryByText( String text , Integer pageNum , Integer pageSize ){
         return this.entryItemService.searchByText(text, Integer.SIZE, Integer.SIZE);
     }
     

@@ -15,7 +15,5 @@ public class IndexResponseObj extends DocWriteResponseObj<IndexResponse> {
     
     public IndexResponseObj( IndexResponse indexResponse ){
         super(indexResponse);
-        
-        
     }
 }

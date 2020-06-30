@@ -8,17 +8,22 @@ package king.app.web.zlkf.search.searchworker.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntryItemRepository;
 import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
+import king.app.web.zlkf.search.searchworker.service.ElshCreateService;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.ESearchService;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.SearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdRdService;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdService;
 import king.app.web.zlkf.search.searchworker.service.model.RedisService;
+import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
@@ -206,7 +211,7 @@ public class TestController {
             return ex.toString();
         }
     }
-    
+
     @RequestMapping("es/query/get/{id}")
     public Object es_query_get_id(@PathVariable("id") String id) {
         GetRequest deleteRequest = new GetRequest("test", "docu", id);
@@ -223,6 +228,26 @@ public class TestController {
         String httpStr = "http://193.112.51.74:9200/test/docu/2";
         String result = this.originRestTemplate.getForObject(httpStr, String.class);
         return result;
+    }
+
+    @Autowired
+    private ElshCreateService elshCreateService;
+
+    @RequestMapping("es/query/insert/entryItem/new")
+    public Object es_query_insert_entryItem(String title, String introduction) {
+        EntryItem entryItem = new EntryItem();
+        this.entryItemService.newEntryItem(entryItem);
+        entryItem.title = title;
+        entryItem.introduction = introduction;
+        entryItem.url = "http://www.baidu.com";
+        CreateEntryItemObj createEntryItemObj = new CreateEntryItemObj(entryItem, null);
+        EntryItemEs entryItemEs;
+        try {
+            entryItemEs = this.elshCreateService.createEntryItemEs(createEntryItemObj);
+            return entryItemEs;
+        } catch (Exception ex) {
+            return "exception is :\t" + ex.toString();
+        }
     }
 
 }

@@ -7,6 +7,7 @@ package king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc;
 
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
 import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.rest.RestStatus;
 
 /**
  *
@@ -48,6 +49,18 @@ public class DocWriteResponseObj <T extends DocWriteResponse>  extends ESearchRe
         this.type = type;
         this.version = version;
         this.result = result;
+    }
+    
+    /**
+     * 当前的状态是否成功
+     * @return 
+     */
+    public boolean statusSuccess(){
+        if( this.originSearchResponse != null ){
+            return false;
+        }
+        RestStatus restStatus = this.originSearchResponse.status();
+        return restStatus.equals( RestStatus.OK ) || restStatus.equals( RestStatus.CREATED );
     }
     
 }
