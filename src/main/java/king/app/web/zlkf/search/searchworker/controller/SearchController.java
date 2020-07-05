@@ -5,8 +5,9 @@
  */
 package king.app.web.zlkf.search.searchworker.controller;
 
-import king.app.web.zlkf.search.searchworker.service.search.ElshSearchService;
+import king.app.web.zlkf.search.searchworker.service.elasticsearch.ElshSearchService;
 import king.app.web.zlkf.search.searchworker.service.search.MysqlSearchService;
+import king.app.web.zlkf.search.searchworker.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SearchController {
     
     @Autowired
-    private MysqlSearchService searchService;
-    
-    @Autowired
-    private ElshSearchService elshSearchService;
+    private SearchService searchService;
     
     @RequestMapping("text")
     public Object searchByText( String text , Integer pageNum , Integer pageSize ){

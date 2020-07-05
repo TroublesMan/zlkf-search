@@ -18,13 +18,14 @@ public class ElshBeanService {
     
     private final String elshType = null;
     
+    private final static String ENTRY_ITEM_ES_TYPE  = "enI";
+    
     public String getElshIndex( Object targetObject ){
         return this.currentServerIndex;
     }
     
-    public String targetElshType( Object targetObject ){
-        Class targetClass = targetObject.getClass();
-        return targetClass.toString();
+    public String targetElshType( Class esClass){
+        return ENTRY_ITEM_ES_TYPE;
     }
     
     

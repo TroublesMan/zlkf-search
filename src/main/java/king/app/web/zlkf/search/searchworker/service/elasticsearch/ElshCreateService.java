@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package king.app.web.zlkf.search.searchworker.service;
+package king.app.web.zlkf.search.searchworker.service.elasticsearch;
 
 import java.io.IOException;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
 import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
-import king.app.web.zlkf.search.searchworker.service.elasticsearch.ESearchService;
+import king.app.web.zlkf.search.searchworker.service.ElshBeanService;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc.IndexResponseObj;
 import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
-import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +28,7 @@ public class ElshCreateService {
     
     @Autowired
     private ElshBeanService elshBeanService;
+    
 
     /**
      * 根据创造对应的createObj然后来进行得到对应的结果
@@ -46,7 +45,8 @@ public class ElshCreateService {
         //之后我们准备整合对应的信息
         
         String esIndex = this.elshBeanService.getElshIndex(entryItemEs);
-        String esType = "enI";
+        //对应后期会执行设置
+        String esType = this.elshBeanService.targetElshType(entryItemEs.getClass());
         String esId = entryItemEs.id.toString();
         
         IndexResponseObj indexResponseObj = this.eSearchService.saveOrUpdateByObj( esIndex, esType , esId , entryItemEs );

@@ -82,6 +82,17 @@ public class EntryItemService {
     }
     
     /**
+     * 根据对应 entryItem 的id 号，来生成对应的信息
+     * 
+     * @param idList
+     * @return 
+     * 注意，这个方法，并没有带入对应的 缓存效果，因此将来还需要进一步的优化。
+     */
+    public List<EntryItem> searchEntryByIds( List<Long> idList ){
+        return this.entryItemRepository.searchEntryByIds(idList);
+    }
+    
+    /**
      * 
      * 创建对应的EntryItem ， 无需要对应的下一步的共享
      * 
@@ -91,14 +102,10 @@ public class EntryItemService {
     public CreateEntryItemObj createEntryItem( EntryItem entryItem ){
         
         this.self.newEntryItem(entryItem);
-        
         //将对应的操作带入里面 ， 我们暂时先不管其他的东西，直接将操作写入这里面
-        
-        Set<AnalyWdStruct> analyStructSet = this.analyWdService.analyEntryItem(entryItem);
         EntryItem newEntryItem = this.entryItemRepository.save(entryItem);
-        
+        Set<AnalyWdStruct> analyStructSet = this.analyWdService.analyEntryItem(entryItem);
         CreateEntryItemObj createObj = new CreateEntryItemObj(newEntryItem, analyStructSet);
-        
         return createObj;
         
     }

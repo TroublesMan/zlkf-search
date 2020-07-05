@@ -8,6 +8,10 @@ package king.app.web.zlkf.search.searchworker.service.elasticsearch;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc.DeleteResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.GetResponseObj;
@@ -24,6 +28,8 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +49,9 @@ public class ESearchService {
     @Autowired
     private RestHighLevelClient elasticSearchCli;
     
+    @Autowired
+    private ESearchService self;
+    
     public boolean isAlive(){
         return true;
     }
@@ -58,8 +67,43 @@ public class ESearchService {
         SearchResponseObj responseObj = new SearchResponseObj(response);
         return responseObj;
     }
+    /**
+     * 整合对应的信息，之后默认整合成对应的信息
+     * 
+     * @param <T>
+     * @param searchRequest
+     * @param targetClass
+     * @return 
+     * @throws java.io.IOException 
+     */
+    public <T> List<T> searchForList( SearchRequest searchRequest ,Class<T> targetClass ) throws IOException{
+        SearchResponseObj searchResponseObj = self.search(searchRequest);
+        SearchResponse searchResponse = searchResponseObj.originSearchResponse;
+        //得到对应的信息
+        
+        SearchHits searchHits = searchResponse.getHits();
+        Long totalHits = searchHits.getTotalHits();
+        // 得到对应的结果
+        Iterator<SearchHit> iterator = searchHits.iterator();
+        List<T> itemEsList = new ArrayList<T>(totalHits.intValue());
+        //将内部的信息进行输出
+        while( iterator.hasNext() ){
+            //下面开始分析每一次的结果
+            SearchHit searchHit = iterator.next();
+            String hitString = searchHit.getSourceAsString();
+            T item = JSONObject.parseObject(hitString, targetClass);
+            itemEsList.add(item);
+        }
+        
+        return itemEsList;
+    }
     
-    
+    /**
+     * 
+     * @param indexRequest
+     * @return
+     * @throws IOException 
+     */
     public IndexResponseObj saveOrUpdate( IndexRequest indexRequest ) throws IOException{
         IndexResponse indexResponse = this.elasticSearchCli.index(indexRequest);
         IndexResponseObj indexResponseObj = new IndexResponseObj( indexResponse );

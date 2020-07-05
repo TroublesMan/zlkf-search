@@ -7,6 +7,7 @@ package king.app.web.zlkf.search.searchworker.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,9 @@ import king.app.web.zlkf.search.searchworker.model.jpa.EntryItemRepository;
 import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
 import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
-import king.app.web.zlkf.search.searchworker.service.ElshCreateService;
+import king.app.web.zlkf.search.searchworker.service.elasticsearch.ElshCreateService;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.ESearchService;
+import king.app.web.zlkf.search.searchworker.service.elasticsearch.ElshSearchService;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.SearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdRdService;
@@ -250,4 +252,11 @@ public class TestController {
         }
     }
 
+    @Autowired
+    private ElshSearchService elshSearchService;
+    @RequestMapping("/es/search/t/ext")
+    public Object es_query_search_entryItem( String text ) throws IOException{
+        List<EntryItemEs> entryItemEs = this.elshSearchService.searchEntryByText(text, 0,10);
+        return entryItemEs;
+    }
 }

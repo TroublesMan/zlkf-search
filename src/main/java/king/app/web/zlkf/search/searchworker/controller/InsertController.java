@@ -6,6 +6,7 @@
 package king.app.web.zlkf.search.searchworker.controller;
 
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.service.CreateService;
 import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
 import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class InsertController {
     @Autowired
     private EntryItemService entryItemService;
     
+    @Autowired
+    private CreateService createService;
+    
     
     @RequestMapping("entry")
     public Object insertEntryItem( String title , String introduction ,  String url ){
@@ -31,7 +35,7 @@ public class InsertController {
         entryItem.introduction = introduction;
         entryItem.url = url;
         //下面生成对应的信息
-        CreateEntryItemObj itemObj =  this.entryItemService.createEntryItem(entryItem);
+        EntryItem itemObj =  this.createService.createEntryItem(entryItem);
         return itemObj;
     }
     

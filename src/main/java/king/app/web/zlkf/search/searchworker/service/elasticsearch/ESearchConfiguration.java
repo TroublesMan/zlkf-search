@@ -6,8 +6,10 @@
 package king.app.web.zlkf.search.searchworker.service.elasticsearch;
 
 import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.client.RestClientBuilder.RequestConfigCallback;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +41,19 @@ public class ESearchConfiguration {
     
     @Bean
     public RestHighLevelClient highLevelClient(@Autowired RestClientBuilder builder ) {
-        builder.setMaxRetryTimeoutMillis(60000);
+        builder.setMaxRetryTimeoutMillis(1500);
+        //设置对应的请求连接
+        /*
+        builder.setRequestConfigCallback(new RequestConfigCallback() {
+            @Override
+            public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
+                
+                requestConfigBuilder.setConnectionRequestTimeout(1500);
+                requestConfigBuilder.setConnectTimeout(1500);
+                return requestConfigBuilder;
+            }
+        });
+    */
         return new RestHighLevelClient(builder.build());
     }
     
