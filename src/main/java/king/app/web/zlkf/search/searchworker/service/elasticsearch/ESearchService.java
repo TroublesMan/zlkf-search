@@ -5,15 +5,12 @@
  */
 package king.app.web.zlkf.search.searchworker.service.elasticsearch;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc.DeleteResponseObj;
-import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.GetResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.doc.IndexResponseObj;
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.SearchResponseObj;

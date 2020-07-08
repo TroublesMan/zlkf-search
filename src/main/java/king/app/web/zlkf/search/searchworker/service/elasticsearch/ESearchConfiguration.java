@@ -40,7 +40,7 @@ public class ESearchConfiguration {
     }
     
     @Bean
-    public RestHighLevelClient highLevelClient(@Autowired RestClientBuilder builder ) {
+    public RestHighLevelClient highLevelClient( @Autowired RestClientBuilder builder ) {
         builder.setMaxRetryTimeoutMillis(1500);
         //设置对应的请求连接
         /*

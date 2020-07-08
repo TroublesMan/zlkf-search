@@ -77,7 +77,6 @@ public class EntryItemService {
             }
         }, pageable);
         
-        //this.entrySearchHisService.writeSearchHis(text);
         return items.getContent();
     }
     

@@ -38,7 +38,7 @@ public class ServiceAspectComponent {
      * @return 
      * @throws Throwable 
      */
-    @Around("entry_search_text()")
+    //@Around("entry_search_text()")
     public Object searchTextAtferHis(ProceedingJoinPoint joinPoint) throws Throwable{
         
         Object result = joinPoint.proceed();

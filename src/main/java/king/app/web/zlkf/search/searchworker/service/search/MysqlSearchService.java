@@ -25,7 +25,7 @@ public class MysqlSearchService {
     private EntryItemService entryItemService ;
     
     public List<EntryItem> searchEntryByText( String text , Integer pageNum , Integer pageSize ){
-        return this.entryItemService.searchByText(text, Integer.SIZE, Integer.SIZE);
+        return this.entryItemService.searchByText(text, pageNum,pageSize);
     }
     
     /**

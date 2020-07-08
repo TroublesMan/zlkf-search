@@ -26,6 +26,7 @@ import king.app.web.zlkf.search.searchworker.service.model.AnalyWdRdService;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdService;
 import king.app.web.zlkf.search.searchworker.service.model.RedisService;
 import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
+import king.app.web.zlkf.search.searchworker.service.search.SearchService;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
@@ -254,9 +255,13 @@ public class TestController {
 
     @Autowired
     private ElshSearchService elshSearchService;
+    
+    @Autowired
+    private SearchService searchService;
+    
     @RequestMapping("/es/search/t/ext")
     public Object es_query_search_entryItem( String text ) throws IOException{
-        List<EntryItemEs> entryItemEs = this.elshSearchService.searchEntryByText(text, 0,10);
+        List<EntryItem> entryItemEs = this.searchService.searchEntryByText(text, 0,10);
         return entryItemEs;
     }
 }

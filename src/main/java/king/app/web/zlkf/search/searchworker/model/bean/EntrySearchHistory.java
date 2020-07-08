@@ -30,6 +30,9 @@ public class EntrySearchHistory implements Serializable{
     @Column(name="create_time")
     public Long createTime = null;
     
+    @Column(name="modify_time")
+    public Long modifyTime = null; //修改时间
+    
     @Column(name="search_count")
     public Long searchCount = null;
 }

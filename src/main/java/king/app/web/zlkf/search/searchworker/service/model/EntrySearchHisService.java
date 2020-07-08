@@ -25,6 +25,9 @@ public class EntrySearchHisService {
     @Autowired
     private JdbcTemplate originJdbcTemplate;
     
+    @Autowired
+    private EntrySearchHisService self;
+    
     /**
      * 新建 ， 查看是否对应的 信息是否为空 ， 倘若为空的话
      * @param content
@@ -39,34 +42,37 @@ public class EntrySearchHisService {
         
         Long count = new Long(1);
         EntrySearchHistory history = this.hisRepository.getEntryHisByContent(content);
+        Date current = new Date();
         if( history == null ){
             //创建新的 history 记录
-            Date current = new Date();
             history = new EntrySearchHistory();
             history.id  = current.getTime();
             history.content = content;
             history.createTime = current.getTime();
+            history.modifyTime = current.getTime();
             history.searchCount = count;
+            
             history = this.hisRepository.save( history );
             
             return history;
         }
         
+        history.modifyTime = current.getTime();
         Long currentCount = history.searchCount;
         
         history.searchCount = currentCount + count;
+        System.out.println( count + "\t" + history.searchCount);
         
-        this.updateHisCountById( history.id, currentCount ,  history.searchCount);
+        self.update( history );
 
         return history;
         
     }
     
     
-    public int updateHisCountById( Long id  , Long currentCount , Long searchCount ){
-        String sql = "UPDATE entry_search_history esh SET esh.search_count = ? WHERE esh.id= ? AND esh.search_count = ?";
-        int updateNumber =  this.originJdbcTemplate.update(sql, searchCount , id , currentCount);
-        return updateNumber;
+    public EntrySearchHistory update( EntrySearchHistory history ){
+        this.hisRepository.save(history);
+        return history;
     }
     
 }
