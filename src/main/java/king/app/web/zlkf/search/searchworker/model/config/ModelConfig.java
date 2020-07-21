@@ -74,8 +74,10 @@ public class ModelConfig {
         return origin;
     }
     
+    /*
     @Bean
     public RedisTemplate redisTemplate( RedisStruct redisStruct ){
         return redisStruct.template;
-    }
+    }*/
+    
 }

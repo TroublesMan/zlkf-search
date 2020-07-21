@@ -8,6 +8,7 @@ package king.app.web.zlkf.search.searchworker.service.model;
 import java.util.Date;
 import king.app.web.zlkf.search.searchworker.model.bean.EntrySearchHistory;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntrySearchHisRepository;
+import king.app.web.zlkf.search.searchworker.service.LogSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EntrySearchHisService {
+    
+    @Autowired
+    private LogSerivce logService;
     
     @Autowired
     private EntrySearchHisRepository hisRepository;
@@ -61,7 +65,7 @@ public class EntrySearchHisService {
         Long currentCount = history.searchCount;
         
         history.searchCount = currentCount + count;
-        System.out.println( count + "\t" + history.searchCount);
+        this.logService.println( count + "\t" + history.searchCount);
         
         self.update( history );
 

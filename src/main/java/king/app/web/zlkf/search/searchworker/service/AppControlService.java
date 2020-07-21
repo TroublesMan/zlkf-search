@@ -5,6 +5,7 @@
  */
 package king.app.web.zlkf.search.searchworker.service;
 
+import king.app.web.zlkf.search.searchworker.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class AppControlService {
     @Autowired
     private AppControlService self;
     
+    @Autowired
+    private RedisService redisService;
+    
     private boolean isAllowAsync = false;
     
     private boolean isAllowDatabase = true;
@@ -29,8 +33,6 @@ public class AppControlService {
     private boolean isAllowRedis = true; //是否允许运行 redis 运行
     
     private boolean isAllowElasticsearch = true;
-    
-    
     
     public boolean isAllowAsync(){
         return this.isAllowAsync;
@@ -61,6 +63,23 @@ public class AppControlService {
     public boolean setAllowRedis( boolean allowRedis ){
         this.isAllowRedis = allowRedis;
         return self.isAllowRedis();
+    }
+    
+    /**
+     * 当前的 redis 的运行状态
+     * @return 
+     */
+    public boolean currentRedisStatus(){
+        return this.redisService.currentRedisStatus();
+    }
+    
+    /**
+     * 改变当前的redis运行状态
+     * @return 
+     */
+    public boolean setRedisStatus( boolean redisStatus ){
+        //暂不开放
+        return self.currentRedisStatus();
     }
     
     public boolean isAllowElasticsearch(){

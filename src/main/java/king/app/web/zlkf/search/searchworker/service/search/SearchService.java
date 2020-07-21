@@ -71,4 +71,8 @@ public class SearchService {
         //将搜索文本进行保存，当然，这里的输入信息，应该调整为对应的异步处理状态
         return resultEntryItem;
     }
+    
+    public Long countByText( String text ){
+        return null;
+    }
 }

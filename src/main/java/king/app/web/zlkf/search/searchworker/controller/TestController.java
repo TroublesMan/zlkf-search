@@ -6,6 +6,7 @@
 package king.app.web.zlkf.search.searchworker.controller;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +25,8 @@ import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.ESearchR
 import king.app.web.zlkf.search.searchworker.service.elasticsearch.comm.action.SearchResponseObj;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdRdService;
 import king.app.web.zlkf.search.searchworker.service.model.AnalyWdService;
-import king.app.web.zlkf.search.searchworker.service.model.RedisService;
 import king.app.web.zlkf.search.searchworker.service.obj.CreateEntryItemObj;
+import king.app.web.zlkf.search.searchworker.service.redis.RedisService;
 import king.app.web.zlkf.search.searchworker.service.search.SearchService;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
@@ -101,7 +102,7 @@ public class TestController {
     public Object redisSet(@PathVariable("key") String key, @PathVariable("val") String val) {
         EntryItem entry = new EntryItem();
         entry.title = val;
-        this.redis.set(key, entry);
+        this.redis.put(key, entry,Duration.ofDays(1));
         return entry;
     }
 

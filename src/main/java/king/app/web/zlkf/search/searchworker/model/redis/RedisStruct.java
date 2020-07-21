@@ -16,9 +16,9 @@ import org.springframework.data.redis.core.ValueOperations;
  * @author king
  */
 public class RedisStruct {
-    public  RedisTemplate template;
-    public  ValueOperations valueOperations;
-    public  HashOperations hashOperations;
+    public  RedisTemplate template = null;
+    public  ValueOperations valueOperations = null;
+    public  HashOperations hashOperations = null;
     
     public RedisConnectionFactory connectionFactory = null;
     public boolean isConnectionRedis = false; 
@@ -26,8 +26,8 @@ public class RedisStruct {
     public static RedisStruct byTemplate ( RedisTemplate template ){
         RedisStruct redisStruct = new RedisStruct();
         redisStruct.template = template;
-        redisStruct.valueOperations = template.opsForValue();
-        redisStruct.hashOperations = template.opsForHash();
+        //redisStruct.valueOperations = template.opsForValue();
+       // redisStruct.hashOperations = template.opsForHash();
         
         if( !redisStruct.isConnectionRedis ){
             redisStruct.setConnectionFactory(template.getConnectionFactory());
