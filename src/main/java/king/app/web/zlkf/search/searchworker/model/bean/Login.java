@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import king.app.web.zlkf.search.searchworker.model.bean.anno.TableIdentifier;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "login")
+@TableIdentifier( identifier = 101)
 public class Login {
     
     @Id

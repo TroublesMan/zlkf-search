@@ -6,10 +6,19 @@
 package king.app.web.zlkf.search.searchworker.service.model;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import king.app.web.zlkf.search.searchworker.model.bean.EntrySearchHistory;
 import king.app.web.zlkf.search.searchworker.model.jpa.EntrySearchHisRepository;
 import king.app.web.zlkf.search.searchworker.service.LogSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +80,23 @@ public class EntrySearchHisService {
 
         return history;
         
+    }
+    
+    /**
+     * 让目标用户根据当前的信息 ， 来找到对应的最有可能需要的数据
+     * @param text
+     * @return 
+     */
+    public List<EntrySearchHistory> searchByTextInput( String text ){
+        Page<EntrySearchHistory> page = this.hisRepository.findAll(new Specification<EntrySearchHistory>() {
+            @Override
+            public Predicate toPredicate(Root<EntrySearchHistory> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                return cb.like( root.get("content"), "%" + text + "%");
+            }
+        }, new PageRequest(0, 10,Sort.by(Sort.Order.desc("search_count"))));
+        
+        List<EntrySearchHistory> resList = page.getContent();
+        return resList;
     }
     
     

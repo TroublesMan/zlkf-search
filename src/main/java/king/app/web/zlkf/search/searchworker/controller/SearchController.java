@@ -28,4 +28,21 @@ public class SearchController {
         return this.searchService.searchEntryByText(text, pageNum, pageSize);
     }
     
+    @RequestMapping("text/count")
+    public Object countByText( String text ){
+        return this.searchService.countByText(text);
+    }
+    
+    /**
+     * 根据对方用户输入的 input 字符串来进行的 提示操作
+     * PS:这里可能需要与前端的缓存机制互相配合，
+     * 来构建较强的可用性操作
+     * @param text
+     * @return 
+     */
+    @RequestMapping("text/recommend")
+    public Object recommend( String text ){
+       return this.searchService.recommend(text);
+    }
+    
 }

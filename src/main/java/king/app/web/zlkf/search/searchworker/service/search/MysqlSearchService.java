@@ -7,10 +7,12 @@ package king.app.web.zlkf.search.searchworker.service.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import king.app.web.zlkf.search.searchworker.model.bean.EntryItem;
+import king.app.web.zlkf.search.searchworker.model.bean.EntrySearchHistory;
 import king.app.web.zlkf.search.searchworker.model.bean.es.EntryItemEs;
 import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
-import king.app.web.zlkf.search.searchworker.service.model.EntryItemService;
+import king.app.web.zlkf.search.searchworker.service.model.EntrySearchHisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,40 @@ public class MysqlSearchService {
     @Autowired
     private EntryItemService entryItemService ;
     
+    @Autowired
+    private EntrySearchHisService entrySearchHistory;
+    
     public List<EntryItem> searchEntryByText( String text , Integer pageNum , Integer pageSize ){
         return this.entryItemService.searchByText(text, pageNum,pageSize);
+    }
+    
+    /**
+     * 计算总共有多少 条数据
+     * @param text
+     * @return 
+     */
+    public Long countByText( String text){
+        return this.entryItemService.countByText(text);
+    }
+    
+    /**
+     * 根据当前的字符串 进行对应的提示操作
+     * @param text
+     * @return 
+     */
+    public List<String> searchByTextInput( String text ){
+        List<EntrySearchHistory> historyList = this.entrySearchHistory.searchByTextInput(text);
+        Integer listLen = historyList.size();
+        List<String> strList = new ArrayList<String>( listLen );
+        
+        historyList.forEach(new Consumer<EntrySearchHistory>(){
+            @Override
+            public void accept(EntrySearchHistory history) {
+                String str = history.content;
+                strList.add(str);
+            }
+        });
+        return strList;
     }
     
     /**

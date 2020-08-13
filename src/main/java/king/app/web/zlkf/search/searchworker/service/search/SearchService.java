@@ -72,7 +72,21 @@ public class SearchService {
         return resultEntryItem;
     }
     
+    /**
+     * 暂时只由MYSQL 数据持久层来进行操作
+     * @param text
+     * @return 
+     */
     public Long countByText( String text ){
-        return null;
+        return this.mysqlSearchService.countByText(text);
+    }
+    
+    /**
+     * 根据用户当前输入的信息，然后返回推荐语句
+     * @param text
+     * @return 
+     */
+    public List<String> recommend( String text ){
+        return this.mysqlSearchService.searchByTextInput(text);
     }
 }

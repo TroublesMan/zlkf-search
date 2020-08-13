@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import king.app.web.zlkf.search.searchworker.model.bean.anno.TableIdentifier;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "entry_search_history")
+@TableIdentifier( identifier = 103)
 public class EntrySearchHistory implements Serializable{
     
     @Id

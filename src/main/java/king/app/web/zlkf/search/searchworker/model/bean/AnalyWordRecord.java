@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import king.app.web.zlkf.search.searchworker.model.bean.anno.TableIdentifier;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "analy_word_record")
+@TableIdentifier( identifier = 105)
 public class AnalyWordRecord implements Serializable {
     
     @Id
